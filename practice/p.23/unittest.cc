@@ -3,7 +3,7 @@
 
 TEST(Solve, Test1) {
 	int l = 10;
-	int n = 5;
+	int n = 3;
 	int x[] = {2,6,7};
 	int min = 0, max = 0;
 
