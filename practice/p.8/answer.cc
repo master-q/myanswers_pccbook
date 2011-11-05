@@ -20,21 +20,30 @@ int bin_search(int n, int k[], int f) {
 }
 
 int solve(int n, int m, int k[]) {
-	int a, b, c;
+	int a, b;
+	int *kk;
 
-	sort(k, k + n);
+	kk = (int *) malloc(n * n * sizeof(int));
+	// if (kk == NULL) { xxx }
+	for (a = 0; a < n; a++) {
+		for (b = 0; b < n; b++) {
+			kk[a + b * n] = k[a] + k[b];
+		}
+	}
+
+	sort(kk, kk + n * n);
 
 	for (a = 0; a < n; a++) {
 		for (b = 0; b < n; b++) {
-			for (c = 0; c < n; c++) {
-				int f = m - k[a] - k[b] - k[c];
-				if (f > 0 &&
-				    YES == bin_search(n, k, f)) {
-					return YES;
-				}
+			int f = m - k[a] - k[b];
+			if (f > 0 &&
+			    YES == bin_search(n * n, kk, f)) {
+				return YES;
 			}
 		}
 	}
+
+	free(kk);
 
 	return NO;
 }
